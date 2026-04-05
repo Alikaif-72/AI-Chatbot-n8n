@@ -1,0 +1,196 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1582e62c-7f21-40b9-9929-5e2e4b74330a",
+      "name": "When chat message received",
+      "webhookId": "d599f113-7b9c-414f-94ec-076793a85535"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "091ff1f5-ac74-4e16-aeac-549ed35afe8d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        232,
+        224
+      ],
+      "id": "3fc0c27f-807a-4d43-8d76-5955e962fd2d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "2bwXeJdOC45tzREI",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/audio/speech",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "groqApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "canopylabs/orpheus-v1-english"
+            },
+            {
+              "name": "voice",
+              "value": "autumn"
+            },
+            {
+              "name": "input",
+              "value": "={{ $json.output }}"
+            },
+            {
+              "name": "response_format",
+              "value": "wav"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "out.wav"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        576,
+        0
+      ],
+      "id": "54894d5d-f96b-446e-9e56-4c037e281512",
+      "name": "HTTP Request",
+      "credentials": {
+        "groqApi": {
+          "id": "MqvBRdiAyBJXD2ul",
+          "name": "Groq account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Gemini Model:\nUsed for conversational AI responses\n\nGroq API:\nUsed for fast inference via HTTP request"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -384,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "994bdc1d-d837-4e3e-aa59-5988e1f0eaa7",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        368,
+        224
+      ],
+      "id": "292bbd2a-6085-4bae-b21b-f4050e929849",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "19dee781-021d-4063-878e-3fc4aa915198",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "593cf4de8b5dd3c40e5390cf81fc3552c4f3385b52622ce2ef7a817c756abb30"
+  },
+  "id": "XNDMNsOU0lhRmraW",
+  "tags": []
+}
