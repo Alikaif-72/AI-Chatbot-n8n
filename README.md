@@ -24,7 +24,7 @@ It processes user messages and generates intelligent responses using AI models l
 
 ## 📸 Screenshot
 
-![Workflow](images/workflow.png)
+![Workflow]"E:\images\Screenshot 2026-04-05 133155.png"
 
 ## 🚀 Features
 
