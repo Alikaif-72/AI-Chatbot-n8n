@@ -24,7 +24,8 @@ It processes user messages and generates intelligent responses using AI models l
 
 ## 📸 Screenshot
 
-"E:\images\Screenshot 2026-04-05 133155.png"
+<img width="954" height="444" alt="Screenshot 2026-04-05 133155" src="https://github.com/user-attachments/assets/2945c799-b51b-4d99-8978-a153a22a2986" />
+
 
 ## 🚀 Features
 
